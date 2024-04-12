@@ -8,22 +8,18 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace Sranje
 {
-    internal class Ucenik
+    internal class Templejt
     {
-        public string ime;
-        public string prezime;
-        public string skola;
+        public string imeTemplejta;
         public string tipMature;
         public string jezik;
         public string predmet1;
         public string predmet2;
         public string predmet3;
 
-        public Ucenik(string l_ime, string l_prezime, string l_skola, string l_tipMature, string l_jezik, string l_predmet1, string l_predmet2, string l_predmet3)
+        public Templejt(string l_tipMature, string l_jezik, string l_predmet1, string l_predmet2, string l_predmet3)
         {
-            ime = l_ime;
-            prezime = l_prezime;
-            skola = l_skola;
+            imeTemplejta = "";
             tipMature = l_tipMature;
             jezik = l_jezik;
             predmet1 = l_predmet1;
@@ -31,28 +27,26 @@ namespace Sranje
             predmet3 = l_predmet3;
         }
 
-        public Ucenik(string info)
+        public Templejt(string info)
         {
             string[] podaci = info.Split(',');
-            ime = podaci[0];
-            prezime = podaci[1];
-            skola = podaci[2];
-            tipMature = podaci[3];
-            jezik = podaci[4];
-            predmet1 = podaci[5];
-            predmet2 = podaci[6];
-            predmet3 = podaci[7];
+            imeTemplejta = podaci[0];
+            tipMature = podaci[1];
+            jezik = podaci[2];
+            predmet1 = podaci[3];
+            predmet2 = podaci[4];
+            predmet3 = podaci[5];
         }
 
         public override string ToString()
         {
-            return $"{ime},{prezime},{skola},{tipMature},{jezik},{predmet1},{predmet2},{predmet3}";
+            return $"{tipMature},{jezik},{predmet1},{predmet2},{predmet3}";
         }
 
-        public void Sacuvaj(string imeFajla)
+        public void Sacuvaj(string imeFajla, string imeTemplate)
         {
             StreamWriter pisacToka = new StreamWriter(imeFajla, true);
-            pisacToka.WriteLine(this.ToString());
+            pisacToka.WriteLine($"{imeTemplate},{this}");
             pisacToka.Close();
         }
     }

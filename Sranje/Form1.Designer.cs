@@ -39,15 +39,19 @@
             this.cbPredmet1 = new System.Windows.Forms.ComboBox();
             this.cbPredmet2 = new System.Windows.Forms.ComboBox();
             this.cbPredmet3 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblTipMature = new System.Windows.Forms.Label();
+            this.lblJezik = new System.Windows.Forms.Label();
+            this.lblPrviPredmet = new System.Windows.Forms.Label();
+            this.lblDrugiPredmet = new System.Windows.Forms.Label();
+            this.lblTreciPredmet = new System.Windows.Forms.Label();
             this.btnNapraviTemplejt = new System.Windows.Forms.Button();
             this.btnUcitajTemplejt = new System.Windows.Forms.Button();
             this.btnSacuvajUcenika = new System.Windows.Forms.Button();
             this.btnUcitajUcenika = new System.Windows.Forms.Button();
+            this.lblTemplate = new System.Windows.Forms.Label();
+            this.btnleviUcenik = new System.Windows.Forms.Button();
+            this.btnDesniUcenik = new System.Windows.Forms.Button();
+            this.cbImenaTemplejtova = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // tbIme
@@ -165,68 +169,70 @@
             this.cbPredmet3.Size = new System.Drawing.Size(147, 21);
             this.cbPredmet3.TabIndex = 10;
             // 
-            // label1
+            // lblTipMature
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(165, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "tip mature";
+            this.lblTipMature.AutoSize = true;
+            this.lblTipMature.Location = new System.Drawing.Point(165, 51);
+            this.lblTipMature.Name = "lblTipMature";
+            this.lblTipMature.Size = new System.Drawing.Size(53, 13);
+            this.lblTipMature.TabIndex = 11;
+            this.lblTipMature.Text = "tip mature";
             // 
-            // label2
+            // lblJezik
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(165, 78);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(28, 13);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "jezik";
+            this.lblJezik.AutoSize = true;
+            this.lblJezik.Location = new System.Drawing.Point(165, 78);
+            this.lblJezik.Name = "lblJezik";
+            this.lblJezik.Size = new System.Drawing.Size(28, 13);
+            this.lblJezik.TabIndex = 12;
+            this.lblJezik.Text = "jezik";
             // 
-            // label3
+            // lblPrviPredmet
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(165, 105);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "prvi predmet";
+            this.lblPrviPredmet.AutoSize = true;
+            this.lblPrviPredmet.Location = new System.Drawing.Point(165, 105);
+            this.lblPrviPredmet.Name = "lblPrviPredmet";
+            this.lblPrviPredmet.Size = new System.Drawing.Size(65, 13);
+            this.lblPrviPredmet.TabIndex = 13;
+            this.lblPrviPredmet.Text = "prvi predmet";
             // 
-            // label4
+            // lblDrugiPredmet
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(165, 132);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "drugi predmet";
+            this.lblDrugiPredmet.AutoSize = true;
+            this.lblDrugiPredmet.Location = new System.Drawing.Point(165, 132);
+            this.lblDrugiPredmet.Name = "lblDrugiPredmet";
+            this.lblDrugiPredmet.Size = new System.Drawing.Size(71, 13);
+            this.lblDrugiPredmet.TabIndex = 14;
+            this.lblDrugiPredmet.Text = "drugi predmet";
             // 
-            // label5
+            // lblTreciPredmet
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(165, 159);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 13);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "treci predmet";
+            this.lblTreciPredmet.AutoSize = true;
+            this.lblTreciPredmet.Location = new System.Drawing.Point(165, 159);
+            this.lblTreciPredmet.Name = "lblTreciPredmet";
+            this.lblTreciPredmet.Size = new System.Drawing.Size(68, 13);
+            this.lblTreciPredmet.TabIndex = 15;
+            this.lblTreciPredmet.Text = "treci predmet";
             // 
             // btnNapraviTemplejt
             // 
-            this.btnNapraviTemplejt.Location = new System.Drawing.Point(12, 186);
+            this.btnNapraviTemplejt.Location = new System.Drawing.Point(12, 212);
             this.btnNapraviTemplejt.Name = "btnNapraviTemplejt";
             this.btnNapraviTemplejt.Size = new System.Drawing.Size(100, 23);
             this.btnNapraviTemplejt.TabIndex = 16;
             this.btnNapraviTemplejt.Text = "napravi templejt";
             this.btnNapraviTemplejt.UseVisualStyleBackColor = true;
+            this.btnNapraviTemplejt.Click += new System.EventHandler(this.btnNapraviTemplejt_Click);
             // 
             // btnUcitajTemplejt
             // 
-            this.btnUcitajTemplejt.Location = new System.Drawing.Point(12, 215);
+            this.btnUcitajTemplejt.Location = new System.Drawing.Point(12, 241);
             this.btnUcitajTemplejt.Name = "btnUcitajTemplejt";
             this.btnUcitajTemplejt.Size = new System.Drawing.Size(100, 23);
             this.btnUcitajTemplejt.TabIndex = 17;
             this.btnUcitajTemplejt.Text = "ucitaj templejt";
             this.btnUcitajTemplejt.UseVisualStyleBackColor = true;
+            this.btnUcitajTemplejt.Click += new System.EventHandler(this.btnUcitajTemplejt_Click);
             // 
             // btnSacuvajUcenika
             // 
@@ -246,21 +252,63 @@
             this.btnUcitajUcenika.TabIndex = 19;
             this.btnUcitajUcenika.Text = "ucitaj ucenika";
             this.btnUcitajUcenika.UseVisualStyleBackColor = true;
+            this.btnUcitajUcenika.Click += new System.EventHandler(this.btnUcitajUcenika_Click);
+            // 
+            // lblTemplate
+            // 
+            this.lblTemplate.AutoSize = true;
+            this.lblTemplate.Location = new System.Drawing.Point(139, 186);
+            this.lblTemplate.Name = "lblTemplate";
+            this.lblTemplate.Size = new System.Drawing.Size(138, 13);
+            this.lblTemplate.TabIndex = 21;
+            this.lblTemplate.Text = "ime template-a koji se koristi";
+            // 
+            // btnleviUcenik
+            // 
+            this.btnleviUcenik.Location = new System.Drawing.Point(367, 132);
+            this.btnleviUcenik.Name = "btnleviUcenik";
+            this.btnleviUcenik.Size = new System.Drawing.Size(30, 23);
+            this.btnleviUcenik.TabIndex = 22;
+            this.btnleviUcenik.Text = "<";
+            this.btnleviUcenik.UseVisualStyleBackColor = true;
+            this.btnleviUcenik.Click += new System.EventHandler(this.btnleviUcenik_Click);
+            // 
+            // btnDesniUcenik
+            // 
+            this.btnDesniUcenik.Location = new System.Drawing.Point(403, 132);
+            this.btnDesniUcenik.Name = "btnDesniUcenik";
+            this.btnDesniUcenik.Size = new System.Drawing.Size(30, 23);
+            this.btnDesniUcenik.TabIndex = 23;
+            this.btnDesniUcenik.Text = ">";
+            this.btnDesniUcenik.UseVisualStyleBackColor = true;
+            this.btnDesniUcenik.Click += new System.EventHandler(this.btnDesniUcenik_Click);
+            // 
+            // cbImenaTemplejtova
+            // 
+            this.cbImenaTemplejtova.FormattingEnabled = true;
+            this.cbImenaTemplejtova.Location = new System.Drawing.Point(12, 186);
+            this.cbImenaTemplejtova.Name = "cbImenaTemplejtova";
+            this.cbImenaTemplejtova.Size = new System.Drawing.Size(121, 21);
+            this.cbImenaTemplejtova.TabIndex = 24;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(650, 455);
+            this.Controls.Add(this.cbImenaTemplejtova);
+            this.Controls.Add(this.btnDesniUcenik);
+            this.Controls.Add(this.btnleviUcenik);
+            this.Controls.Add(this.lblTemplate);
             this.Controls.Add(this.btnUcitajUcenika);
             this.Controls.Add(this.btnSacuvajUcenika);
             this.Controls.Add(this.btnUcitajTemplejt);
             this.Controls.Add(this.btnNapraviTemplejt);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblTreciPredmet);
+            this.Controls.Add(this.lblDrugiPredmet);
+            this.Controls.Add(this.lblPrviPredmet);
+            this.Controls.Add(this.lblJezik);
+            this.Controls.Add(this.lblTipMature);
             this.Controls.Add(this.cbPredmet3);
             this.Controls.Add(this.cbPredmet2);
             this.Controls.Add(this.cbPredmet1);
@@ -292,15 +340,19 @@
         private System.Windows.Forms.ComboBox cbPredmet1;
         private System.Windows.Forms.ComboBox cbPredmet2;
         private System.Windows.Forms.ComboBox cbPredmet3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblTipMature;
+        private System.Windows.Forms.Label lblJezik;
+        private System.Windows.Forms.Label lblPrviPredmet;
+        private System.Windows.Forms.Label lblDrugiPredmet;
+        private System.Windows.Forms.Label lblTreciPredmet;
         private System.Windows.Forms.Button btnNapraviTemplejt;
         private System.Windows.Forms.Button btnUcitajTemplejt;
         private System.Windows.Forms.Button btnSacuvajUcenika;
         private System.Windows.Forms.Button btnUcitajUcenika;
+        private System.Windows.Forms.Label lblTemplate;
+        private System.Windows.Forms.Button btnleviUcenik;
+        private System.Windows.Forms.Button btnDesniUcenik;
+        private System.Windows.Forms.ComboBox cbImenaTemplejtova;
     }
 }
 

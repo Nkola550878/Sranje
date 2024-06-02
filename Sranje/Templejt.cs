@@ -17,9 +17,9 @@ namespace Sranje
         public string predmet2;
         public string predmet3;
 
-        public Templejt(string l_tipMature, string l_jezik, string l_predmet1, string l_predmet2, string l_predmet3)
+        public Templejt(string l_imeTemplejta, string l_tipMature, string l_jezik, string l_predmet1, string l_predmet2, string l_predmet3)
         {
-            imeTemplejta = "";
+            imeTemplejta = l_imeTemplejta;
             tipMature = l_tipMature;
             jezik = l_jezik;
             predmet1 = l_predmet1;
@@ -40,13 +40,13 @@ namespace Sranje
 
         public override string ToString()
         {
-            return $"{tipMature},{jezik},{predmet1},{predmet2},{predmet3}";
+            return $"{imeTemplejta},{tipMature},{jezik},{predmet1},{predmet2},{predmet3}";
         }
 
-        public void Sacuvaj(string imeFajla, string imeTemplate)
+        public void Sacuvaj(string imeFajla)
         {
             StreamWriter pisacToka = new StreamWriter(imeFajla, true);
-            pisacToka.WriteLine($"{imeTemplate},{this}");
+            pisacToka.WriteLine(ToString());
             pisacToka.Close();
         }
     }

@@ -52,7 +52,7 @@ namespace Sranje
         public void Sacuvaj(string imeFajla)
         {
             StreamWriter pisacToka = new StreamWriter(imeFajla, true);
-            pisacToka.WriteLine(this.ToString());
+            pisacToka.WriteLine(ToString());
             pisacToka.Close();
         }
     }

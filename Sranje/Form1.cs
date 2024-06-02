@@ -20,32 +20,38 @@ namespace Sranje
         string imeFajlaGdeSeCuvajuUcenici = "ucenici.csv";
         string imeFajlaGdeSeCuvajuTemplejtovi = "templatovi.csv";
 
-        int linijaZaCitanje = 0;
-        string templejtovi;
+        int indexUcenikaKogaGledamo = 0;
+
+        List<Ucenik> ucenici = new List<Ucenik>();
+        List<Templejt> templejtovi = new List<Templejt>();
 
         public Form1()
         {
             InitializeComponent();
-            UcitajImena();
+            if (!File.Exists(imeFajlaGdeSeCuvajuTemplejtovi))
+            {
+                FileStream tokFajla = File.Create(imeFajlaGdeSeCuvajuTemplejtovi);
+                tokFajla.Close();
+            }
+            UcitajUcenike();
+            UcitajTemplejtove();
         }
 
         private void cbTipMature_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(cbTipMature.SelectedIndex == 0)
             {
-                PostaviMaturu(cbPredmet3, opstaMatura);
+                TreciPredmetUZavisnostiOdTipaMature(cbPredmet3, opstaMatura);
             }
             if (cbTipMature.SelectedIndex == 1)
             {
-                PostaviMaturu(cbPredmet3, strucnaMatura);
+                TreciPredmetUZavisnostiOdTipaMature(cbPredmet3, strucnaMatura);
             }
             if (cbTipMature.SelectedIndex == 2)
             {
-                PostaviMaturu(cbPredmet3, umetnickaMatura);
+                TreciPredmetUZavisnostiOdTipaMature(cbPredmet3, umetnickaMatura);
             }
         }
-
-
 
         #region Ucenici
         private void btnSacuvajUcenika_Click(object sender, EventArgs e)
@@ -93,24 +99,34 @@ namespace Sranje
             }
             #endregion
 
-            Ucenik ucenik = new Ucenik(tbIme.Text, tbPrezime.Text, tbSkola.Text, cbTipMature.Text, cbJezik.Text, cbPredmet1.Text, cbPredmet2.Text, cbPredmet3.Text);
-            ucenik.Sacuvaj(imeFajlaGdeSeCuvajuUcenici);
+            if(indexUcenikaKogaGledamo < ucenici.Count && indexUcenikaKogaGledamo >= 0)
+            {
+                ucenici[indexUcenikaKogaGledamo] = new Ucenik(tbIme.Text, tbPrezime.Text, tbSkola.Text, cbTipMature.Text, cbJezik.Text, cbPredmet1.Text, cbPredmet2.Text, cbPredmet3.Text);
+                return;
+            }
+            ucenici.Add(new Ucenik(tbIme.Text, tbPrezime.Text, tbSkola.Text, cbTipMature.Text, cbJezik.Text, cbPredmet1.Text, cbPredmet2.Text, cbPredmet3.Text));
         }
 
         private void btnUcitajUcenika_Click(object sender, EventArgs e)
         {
-            UcitajUcenika();
+            PrikaziUcenika(indexUcenikaKogaGledamo);
         }
 
-        private void UcitajUcenika()
+        private void UcitajUcenike()
         {
             StreamReader citacToka = new StreamReader(imeFajlaGdeSeCuvajuUcenici);
-            string line = "";
-            for (int i = 0; i < linijaZaCitanje + 1; i++)
+            string linija = "";
+            int brojUcenika = ucenici.Count;
+            for (int i = 0; i < BrojLinijaUFajlu(imeFajlaGdeSeCuvajuUcenici); i++)
             {
-                line = citacToka.ReadLine();
+                linija = citacToka.ReadLine();
+                ucenici.Add(new Ucenik(linija));
             }
-            Ucenik ucenik = new Ucenik(line);
+            citacToka.Close();
+        }
+
+        private void PrikaziUcenika(Ucenik ucenik)
+        {
             tbIme.Text = ucenik.ime;
             tbPrezime.Text = ucenik.prezime;
             tbSkola.Text = ucenik.skola;
@@ -119,23 +135,82 @@ namespace Sranje
             cbPredmet1.Text = ucenik.predmet1;
             cbPredmet2.Text = ucenik.predmet2;
             cbPredmet3.Text = ucenik.predmet3;
-            citacToka.Close();
+        }
+
+        private void PrikaziUcenika(int index)
+        {
+            if(index >= 0 && index < ucenici.Count)
+            {
+                tbIme.Text = ucenici[index].ime;
+                tbPrezime.Text = ucenici[index].prezime;
+                tbSkola.Text = ucenici[index].skola;
+                cbTipMature.Text = ucenici[index].tipMature;
+                cbJezik.Text = ucenici[index].jezik;
+                cbPredmet1.Text = ucenici[index].predmet1;
+                cbPredmet2.Text = ucenici[index].predmet2;
+                cbPredmet3.Text = ucenici[index].predmet3;
+            }
+            else
+            {
+                tbIme.Text = "";
+                tbPrezime.Text = "";
+                tbSkola.Text = "";
+                for (int i = 0; i < templejtovi.Count; i++)
+                {
+                    if (templejtovi[i].imeTemplejta == cbImenaTemplejtova.Text)
+                    {
+                        PrikaziTemplejt(templejtovi[i]);
+                        return;
+                    }
+                }
+            }
         }
 
         private void btnDesniUcenik_Click(object sender, EventArgs e)
         {
-            linijaZaCitanje = (linijaZaCitanje + 1) % BrojLinijaUFajlu(imeFajlaGdeSeCuvajuUcenici);
-            UcitajUcenika();
+            if (ucenici.Count == 0)
+            {
+                MessageBox.Show("Nema unetih ucenika");
+                return;
+            }
+            indexUcenikaKogaGledamo = (indexUcenikaKogaGledamo + 1) % ucenici.Count;
+            PrikaziUcenika(indexUcenikaKogaGledamo);
         }
 
         private void btnleviUcenik_Click(object sender, EventArgs e)
         {
-            linijaZaCitanje = (linijaZaCitanje - 1 + BrojLinijaUFajlu(imeFajlaGdeSeCuvajuUcenici)) % BrojLinijaUFajlu(imeFajlaGdeSeCuvajuUcenici);
-            UcitajUcenika();
+            if (ucenici.Count == 0)
+            {
+                MessageBox.Show("Nema unetih ucenika");
+                return;
+            }
+            indexUcenikaKogaGledamo = (indexUcenikaKogaGledamo - 1 + ucenici.Count) % ucenici.Count;
+            PrikaziUcenika(indexUcenikaKogaGledamo);
         }
+
+        private void btnNoviUcenik_Click(object sender, EventArgs e)
+        {
+            indexUcenikaKogaGledamo = -1;
+            PrikaziUcenika(indexUcenikaKogaGledamo);
+        }
+
         #endregion
 
         #region Templejtovi
+
+        private void UcitajTemplejtove()
+        {
+            StreamReader citacToka = new StreamReader(imeFajlaGdeSeCuvajuTemplejtovi);
+            string linija = "";
+            for (int i = 0; i < BrojLinijaUFajlu(imeFajlaGdeSeCuvajuTemplejtovi); i++)
+            {
+                linija = citacToka.ReadLine();
+                templejtovi.Add(new Templejt(linija));
+                cbImenaTemplejtova.Items.Add(linija.Split(',')[0]);
+            }
+            citacToka.Close();
+        }
+
         private void btnNapraviTemplejt_Click(object sender, EventArgs e)
         {
             #region da li je template validan
@@ -166,11 +241,10 @@ namespace Sranje
             }
             #endregion
 
-            Templejt template = new Templejt(cbTipMature.Text, cbJezik.Text, cbPredmet1.Text, cbPredmet2.Text, cbPredmet3.Text);
-            template.Sacuvaj(imeFajlaGdeSeCuvajuTemplejtovi, cbImenaTemplejtova.Text);
+            templejtovi.Add(new Templejt(cbImenaTemplejtova.Text, cbTipMature.Text, cbJezik.Text, cbPredmet1.Text, cbPredmet2.Text, cbPredmet3.Text));
         }
 
-        private void PostaviMaturu(ComboBox kutijaKombinacija, string mature)
+        private void TreciPredmetUZavisnostiOdTipaMature(ComboBox kutijaKombinacija, string mature)
         {
             kutijaKombinacija.Items.Clear();
             string[] predmeti = mature.Split('\n');
@@ -182,50 +256,49 @@ namespace Sranje
 
         private void btnUcitajTemplejt_Click(object sender, EventArgs e)
         {
-            UcitajTemplejt();
-        }
-
-        private void UcitajTemplejt()
-        {
-            StreamReader citacToka = new StreamReader(imeFajlaGdeSeCuvajuTemplejtovi);
-            string linija = "";
-            for (int i = 0; i < BrojLinijaUFajlu(imeFajlaGdeSeCuvajuTemplejtovi); i++)
+            UcitajTemplejtove();
+            for (int i = 0; i < templejtovi.Count; i++)
             {
-                linija = citacToka.ReadLine();
-                if (linija.Split(',')[0] == cbImenaTemplejtova.Text)
+                if (templejtovi[i].imeTemplejta == cbImenaTemplejtova.Text)
                 {
-                    break;
-                }
-                if(i == BrojLinijaUFajlu(imeFajlaGdeSeCuvajuTemplejtovi) - 1)
-                {
-                    MessageBox.Show("Template sa tim imenom ne postoji");
+                    PrikaziTemplejt(templejtovi[i]);
                     return;
                 }
             }
-            Templejt templejt = new Templejt(linija);
+            MessageBox.Show("templejt ne postoji");
+        }
+
+        private void PrikaziTemplejt(Templejt templejt)
+        {
             cbTipMature.Text = templejt.tipMature;
             cbJezik.Text = templejt.jezik;
             cbPredmet1.Text = templejt.predmet1;
             cbPredmet2.Text = templejt.predmet2;
             cbPredmet3.Text = templejt.predmet3;
-            citacToka.Close();
         }
 
-        private void UcitajImena()
-        {
-            string linija = "";
-            StreamReader citacToka = new StreamReader(imeFajlaGdeSeCuvajuTemplejtovi);
-            for (int i = 0; i < BrojLinijaUFajlu(imeFajlaGdeSeCuvajuTemplejtovi); i++)
-            {
-                linija = citacToka.ReadLine();
-                cbImenaTemplejtova.Items.Add(linija.Split(',')[0]);
-            }
-        }
         #endregion
 
         private int BrojLinijaUFajlu(string put)
         {
             return File.ReadLines(put).Count();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            StreamWriter pisacToka = new StreamWriter(imeFajlaGdeSeCuvajuUcenici);
+            for (int i = 0; i < ucenici.Count; i++)
+            {
+                pisacToka.WriteLine(ucenici[i].ToString());
+            }
+            pisacToka.Close();
+
+            pisacToka = new StreamWriter(imeFajlaGdeSeCuvajuTemplejtovi);
+            for (int i = 0; i < templejtovi.Count; i++)
+            {
+                pisacToka.WriteLine(templejtovi[i].ToString());
+            }
+            pisacToka.Close();
         }
     }
 }

@@ -52,6 +52,7 @@
             this.btnleviUcenik = new System.Windows.Forms.Button();
             this.btnDesniUcenik = new System.Windows.Forms.Button();
             this.cbImenaTemplejtova = new System.Windows.Forms.ComboBox();
+            this.btnNoviUcenik = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbIme
@@ -275,7 +276,7 @@
             // 
             // btnDesniUcenik
             // 
-            this.btnDesniUcenik.Location = new System.Drawing.Point(403, 132);
+            this.btnDesniUcenik.Location = new System.Drawing.Point(439, 132);
             this.btnDesniUcenik.Name = "btnDesniUcenik";
             this.btnDesniUcenik.Size = new System.Drawing.Size(30, 23);
             this.btnDesniUcenik.TabIndex = 23;
@@ -291,11 +292,22 @@
             this.cbImenaTemplejtova.Size = new System.Drawing.Size(121, 21);
             this.cbImenaTemplejtova.TabIndex = 24;
             // 
+            // btnNoviUcenik
+            // 
+            this.btnNoviUcenik.Location = new System.Drawing.Point(403, 132);
+            this.btnNoviUcenik.Name = "btnNoviUcenik";
+            this.btnNoviUcenik.Size = new System.Drawing.Size(30, 23);
+            this.btnNoviUcenik.TabIndex = 25;
+            this.btnNoviUcenik.Text = "0";
+            this.btnNoviUcenik.UseVisualStyleBackColor = true;
+            this.btnNoviUcenik.Click += new System.EventHandler(this.btnNoviUcenik_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(650, 455);
+            this.Controls.Add(this.btnNoviUcenik);
             this.Controls.Add(this.cbImenaTemplejtova);
             this.Controls.Add(this.btnDesniUcenik);
             this.Controls.Add(this.btnleviUcenik);
@@ -322,6 +334,7 @@
             this.Controls.Add(this.tbIme);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -353,6 +366,7 @@
         private System.Windows.Forms.Button btnleviUcenik;
         private System.Windows.Forms.Button btnDesniUcenik;
         private System.Windows.Forms.ComboBox cbImenaTemplejtova;
+        private System.Windows.Forms.Button btnNoviUcenik;
     }
 }
 

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Sranje
+namespace DrzavnaMatura
 {
     public partial class Form1 : Form
     {
@@ -114,6 +114,11 @@ namespace Sranje
 
         private void UcitajUcenike()
         {
+            if (!File.Exists(imeFajlaGdeSeCuvajuUcenici))
+            {
+                FileStream fs = File.Create(imeFajlaGdeSeCuvajuUcenici);
+                fs.Close();
+            }
             StreamReader citacToka = new StreamReader(imeFajlaGdeSeCuvajuUcenici);
             string linija = "";
             int brojUcenika = ucenici.Count;
